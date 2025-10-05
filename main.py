@@ -13,3 +13,5 @@ response = client.models.generate_content(
     model=model,
     contents="Hi! What's the date today?")
 print(response.text)
+print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
+print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
