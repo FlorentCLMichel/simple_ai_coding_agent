@@ -1,4 +1,5 @@
 import os
+import sys
 from google import genai
 from dotenv import load_dotenv
 
@@ -8,10 +9,19 @@ model = os.environ.get("MODEL")
 
 client = genai.Client(api_key=api_key)
 
-# Test that we can communicate with the model
+if len(sys.argv) < 2 :
+    print("Missing argument: Prompt")
+    exit(1)
+
+user_prompt = sys.argv[1]
+
+messages = [
+    genai.types.Content(role="user", parts=[genai.types.Part(text=user_prompt)]),
+]
+
 response = client.models.generate_content(
     model=model,
-    contents="Hi! What's the date today?")
+    contents=messages)
 print(response.text)
 print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
 print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
