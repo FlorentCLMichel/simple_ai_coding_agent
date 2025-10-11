@@ -1,11 +1,6 @@
-import os
+from utils import *
 
-def path_is_parent(parent_path, child_path):
-    parent_path = os.path.abspath(parent_path)
-    child_path = os.path.abspath(child_path)
-    return os.path.commonpath([parent_path]) == os.path.commonpath([parent_path, child_path])
-
-def get_files_info(working_directory: str, directory: str = "."):
+def get_files_info(working_directory: str, directory: str = ".") -> str :
     target_dir = os.path.join(working_directory, directory)
     if not(os.path.isdir(target_dir)):
         return f'ERROR: "{target_dir}" is not a directory'
