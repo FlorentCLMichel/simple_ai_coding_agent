@@ -3,6 +3,8 @@ import sys
 from google import genai
 from dotenv import load_dotenv
 
+system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
+
 load_dotenv()
 api_key = os.environ.get("GEMINI_API_KEY")
 model = os.environ.get("MODEL")
@@ -10,7 +12,7 @@ model = os.environ.get("MODEL")
 client = genai.Client(api_key=api_key)
 
 if (len(sys.argv) < 2) or ("--help" in sys.argv[1:]) or ("-h" in sys.argv[1]) :
-    print("Use: python3 main.py <promt> <options>")
+    print("Use: python3 main.py <prompt> <options>")
     print("Options:")
     print("  --help, -h    : Display this help message")
     print("  --verbose, -v : Verbose mode")
@@ -26,7 +28,8 @@ messages = [
 
 response = client.models.generate_content(
     model=model,
-    contents=messages)
+    contents=messages,
+    config=genai.types.GenerateContentConfig(system_instruction=system_prompt),)
 print(response.text)
 
 if verbose_mode : 
