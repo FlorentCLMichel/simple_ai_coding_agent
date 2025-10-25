@@ -3,7 +3,20 @@ import sys
 from google import genai
 from dotenv import load_dotenv
 
-system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
+from functions.schemas import *
+
+system_prompt = '''
+You are a helpful AI coding agent.
+When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
+- List files and directories.
+All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+'''
+
+available_functions = genai.types.Tool(
+    function_declarations=[
+        schema_get_files_info,
+    ]
+)
 
 load_dotenv()
 api_key = os.environ.get("GEMINI_API_KEY")
@@ -29,8 +42,15 @@ messages = [
 response = client.models.generate_content(
     model=model,
     contents=messages,
-    config=genai.types.GenerateContentConfig(system_instruction=system_prompt),)
-print(response.text)
+    config=genai.types.GenerateContentConfig(
+        tools=[available_functions],
+        system_instruction=system_prompt),
+    )
+if response.function_calls is not None:
+    for function_call in response.function_calls:
+        print(f"Calling function: {function_call.name}({function_call.args})")
+else:
+    print(response.text)
 
 if verbose_mode : 
     print("")
