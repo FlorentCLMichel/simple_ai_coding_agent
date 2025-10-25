@@ -1,4 +1,4 @@
-from utils import *
+from functions.utils import *
 
 def write_file(working_directory, file_path, content) -> str :
     file_path = os.path.join(working_directory, file_path)

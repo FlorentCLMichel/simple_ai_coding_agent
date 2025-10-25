@@ -1,4 +1,4 @@
-from utils import *
+from functions.utils import *
 import subprocess
 
 def run_python_file(working_directory, file_path, args=[]) -> str:
@@ -18,7 +18,6 @@ def run_python_file(working_directory, file_path, args=[]) -> str:
             capture_output=True,
             text=True,
             timeout=30,
-            cwd=os.path.abspath(working_directory),
         )
         output = []
         if result.stdout:

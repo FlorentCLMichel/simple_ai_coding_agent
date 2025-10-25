@@ -1,5 +1,5 @@
-from utils import *
-from config import MAX_CHARS 
+from functions.utils import *
+from functions.config import MAX_CHARS 
 
 def get_file_content(working_directory: str, file_path: str) -> str :
     target_file = os.path.join(working_directory, file_path)
