@@ -27,7 +27,7 @@ available_functions = genai.types.Tool(
 def main():
     """Main function to run the AI coding agent."""
 
-    parser = argparse.ArgumentParser(description="A helpful AI coding agent.")
+    parser = argparse.ArgumentParser(description="An experimental AI coding agent.")
     parser.add_argument("prompt", help="The user prompt.")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose mode.")
     parser.add_argument("--work_dir", default="test_calculator", help="Working directory.")
