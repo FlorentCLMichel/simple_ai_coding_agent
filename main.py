@@ -13,6 +13,7 @@ GEMINI_API_KEY_NAME = "GEMINI_API_KEY"
 MODEL_NAME = "MODEL"
 DEFAULT_MODEL = "gemini-2.0-flash-001"
 DEFAULT_MAX_ITERATIONS = 20
+DEFAULT_MAX_TOKENS = 10000
 
 available_functions = genai.types.Tool(
     function_declarations=[
@@ -31,6 +32,7 @@ def main():
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose mode.")
     parser.add_argument("--work_dir", default="test_calculator", help="Working directory.")
     parser.add_argument("--max_iter", default=str(DEFAULT_MAX_ITERATIONS), help="Maximum number of iterations.")
+    parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
 
     args = parser.parse_args()
 
@@ -43,6 +45,13 @@ def main():
             raise ValueError("max_iter must be a positive integer.")
     except ValueError as e:
         print(f"Error: Invalid max_iter value: {e}")
+        sys.exit(1)
+    try:
+        max_tokens = int(args.max_tok)
+        if max_iterations <= 0:
+            raise ValueError("max_tok must be a positive integer.")
+    except ValueError as e:
+        print(f"Error: Invalid max_tok value: {e}")
         sys.exit(1)
 
     load_dotenv()
@@ -67,7 +76,7 @@ def main():
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
 
-    generate_content_loop(client, model, messages, verbose_mode, working_directory, max_iterations)
+    generate_content_loop(client, model, messages, verbose_mode, working_directory, max_iterations, max_tokens)
 
 def load_system_prompt(file_path="system_prompt.txt"):
     with open(file_path, "r") as f:
@@ -99,15 +108,23 @@ def handle_function_calls(response, verbose, working_directory):
         function_responses.append(function_call_result.parts[0])
     return function_responses
 
-def generate_content_loop(client, model, messages, verbose, working_directory, max_iterations):
+def generate_content_loop(client, model, messages, verbose, working_directory, max_iterations, max_tokens):
     system_instruction = load_system_prompt()
+    total_tokens = 0
     for iteration in range(max_iterations):
+        if total_tokens >= max_tokens:
+            print(f"Reached or exceeded maximum number of tokens ({max_tokens}). Agent may not have completed the task.")
+            break
+        
         try:
             response = call_api(client, model, messages, available_functions, system_instruction)
+            total_tokens += response.usage_metadata.prompt_token_count
+            total_tokens += response.usage_metadata.candidates_token_count
 
             if verbose:
                 print("Prompt tokens:", response.usage_metadata.prompt_token_count)
                 print("Response tokens:", response.usage_metadata.candidates_token_count)
+                print("Total number of tokens used:", total_tokens)
 
             # Add model response to conversation
             for candidate in response.candidates:
