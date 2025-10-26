@@ -22,13 +22,21 @@ class TestCalculator(unittest.TestCase):
         result = self.calculator.evaluate("10 / 2")
         self.assertEqual(result, 5)
 
+    def test_modulo(self):
+        result = self.calculator.evaluate("10 % 3")
+        self.assertEqual(result, 1)
+
     def test_nested_expression(self):
         result = self.calculator.evaluate("3 * 4 + 5")
         self.assertEqual(result, 17)
 
-    def test_complex_expression(self):
+    def test_complex_expression_1(self):
         result = self.calculator.evaluate("2 * 3 - 8 / 2 + 5")
         self.assertEqual(result, 7)
+
+    def test_complex_expression_2(self):
+        result = self.calculator.evaluate("10 + 2 * 3 - 15 / 5 % 2")
+        self.assertEqual(result, 15)
 
     def test_empty_expression(self):
         result = self.calculator.evaluate("")
@@ -42,9 +50,19 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calculator.evaluate("+ 3")
 
-    def test_modulo(self):
-        result = self.calculator.evaluate("10 % 3")
-        self.assertEqual(result, 1)
+    def test_factorial(self):
+        result = self.calculator.evaluate("5 !")
+        self.assertEqual(result, 120)
+
+    def test_factorial_with_other_operators(self):
+        result = self.calculator.evaluate("2 * 3 !")
+        self.assertEqual(result, 12)
+
+    def test_factorial_invalid_input(self):
+        with self.assertRaises(ValueError):
+            self.calculator.evaluate("-5 !")
+        with self.assertRaises(ValueError):
+            self.calculator.evaluate("5.5 !")
 
 
 if __name__ == "__main__":

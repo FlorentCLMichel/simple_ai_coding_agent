@@ -6,6 +6,7 @@ class Calculator:
             "*": lambda a, b: a * b,
             "/": lambda a, b: a / b,
             "%": lambda a, b: a % b,
+            "!": self.factorial,
         }
 
         self.precedence = {
@@ -14,6 +15,7 @@ class Calculator:
             "*": 2,
             "/": 2,
             "%": 2,
+            "!": 3,
         }
 
 
@@ -57,9 +59,21 @@ class Calculator:
             return
 
         operator = operators.pop()
-        if len(values) < 2:
-            raise ValueError(f"not enough operands for operator {operator}")
+        if operator == '!':
+            a = values.pop()
+            if a < 0 or not a.is_integer():
+                raise ValueError("factorial is only defined for non-negative integers")
+            values.append(self.factorial(a))
+        else:
+            if len(values) < 2:
+                raise ValueError(f"not enough operands for operator {operator}")
 
-        b = values.pop()
-        a = values.pop()
-        values.append(self.operators[operator](a, b))
+            b = values.pop()
+            a = values.pop()
+            values.append(self.operators[operator](a, b))
+
+    def factorial(self, n):
+        if n == 0:
+            return 1
+        else:
+            return n * self.factorial(n-1)
