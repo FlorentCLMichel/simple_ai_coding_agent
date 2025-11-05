@@ -32,7 +32,8 @@ def main():
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose mode.")
     parser.add_argument("--work_dir", default="test_calculator", help="Working directory.")
     parser.add_argument("--max_iter", default=str(DEFAULT_MAX_ITERATIONS), help="Maximum number of iterations.")
-    parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
+    parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), 
+                        help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
 
     args = parser.parse_args()
 
