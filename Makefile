@@ -5,3 +5,4 @@ clean:
 	rm -rf functions/__pycache__
 	rm -rf test_calculator/__pycache__
 	rm -rf test_calculator/pkg/__pycache__
+	rm -rf temp
