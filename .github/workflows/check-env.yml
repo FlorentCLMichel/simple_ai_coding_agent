@@ -1,0 +1,23 @@
+name: Check for .env file
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check for .env file
+        run: |
+          if [ -f ".env" ]; then
+            echo "Error: .env file found in the repository!"
+            exit 1
+          fi
