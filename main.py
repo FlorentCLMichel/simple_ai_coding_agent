@@ -36,12 +36,17 @@ def main():
     parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), 
                         help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
     parser.add_argument("--sys_prompt", default=str(SYS_PROMPT_FILE), help="File with the system prompt.")
+    parser.add_argument("--usr_prompt", default=None, help="File with the user prompt (will override prompt).")
 
     args = parser.parse_args()
 
     verbose_mode = args.verbose
     working_directory = args.work_dir
-    user_prompt = args.prompt
+    if args.usr_prompt:
+        with open(args.usr_prompt, 'r') as file:
+            user_prompt = file.read()
+    else:
+        user_prompt = args.prompt
     try:
         max_iterations = int(args.max_iter)
         if max_iterations <= 0:

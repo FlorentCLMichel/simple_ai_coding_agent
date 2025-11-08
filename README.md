@@ -73,6 +73,7 @@ The `main.py` script accepts the following command-line arguments:
 *   `--max_iter` (optional): Sets the maximum number of iterations for the agent's loop. Defaults to 20.
 *   `--max_tok` (optional): Sets the maximum number of tokens to be used during the agent's execution. Defaults to 10000.  **Warning:** The actual number of tokens used may exceed this value.
 *   `--sys_prompt` (optional): Sets the system prompt file. Defaults to "system_prompt.txt".
+*   `--usr_prompt` (optional): Sets the user prompt file (if set, will override `prompt`).
 
 ## Contributing
 
