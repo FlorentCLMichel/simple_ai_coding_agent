@@ -14,8 +14,8 @@ A basic coding agent implemented in Python, inspired by the [freeCodeCamp tutori
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone https://github.com/FlorentCLMichel/simple_ai_coding_agent
+    cd simple_ai_coding_agent
     ```
 
 2.  **Create a virtual environment (recommended):**
