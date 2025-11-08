@@ -14,6 +14,7 @@ MODEL_NAME = "MODEL"
 DEFAULT_MODEL = "gemini-2.0-flash-001"
 DEFAULT_MAX_ITERATIONS = 20
 DEFAULT_MAX_TOKENS = 10000
+SYS_PROMPT_FILE = "system_prompt.txt"
 
 available_functions = genai.types.Tool(
     function_declarations=[
@@ -34,6 +35,7 @@ def main():
     parser.add_argument("--max_iter", default=str(DEFAULT_MAX_ITERATIONS), help="Maximum number of iterations.")
     parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), 
                         help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
+    parser.add_argument("--sys_prompt", default=str(SYS_PROMPT_FILE), help="File with the system prompt.")
 
     args = parser.parse_args()
 
@@ -79,7 +81,7 @@ def main():
 
     generate_content_loop(client, model, messages, verbose_mode, working_directory, max_iterations, max_tokens)
 
-def load_system_prompt(file_path="system_prompt.txt"):
+def load_system_prompt(file_path=SYS_PROMPT_FILE):
     with open(file_path, "r") as f:
         return f.read()
 
