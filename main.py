@@ -24,6 +24,8 @@ available_functions = genai.types.Tool(
         schema_write_file,
         schema_move_file,
         schema_run_python_file,
+        schema_cc,
+        schema_cxx,
     ]
 )
 

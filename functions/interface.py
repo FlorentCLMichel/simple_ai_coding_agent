@@ -6,6 +6,7 @@ from functions.create_dir import *
 from functions.write_file import *
 from functions.move_file import *
 from functions.run_python_file import *
+from functions.compile_c import *
 
 functions = {
     "get_files_info": get_files_info,
@@ -14,6 +15,8 @@ functions = {
     "write_file": write_file,
     "move_file": move_file,
     "run_python_file": run_python_file,
+    "compile_cc": compile_cc,
+    "compile_cxx": compile_cxx,
 }
 
 def call_function(function_call_part, verbose=False, working_directory='.'):

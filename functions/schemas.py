@@ -99,3 +99,41 @@ schema_run_python_file = types.FunctionDeclaration(
         },
     ),
 )
+
+schema_cc = types.FunctionDeclaration(
+    name="compile_cc",
+    description="Run the gcc C compiler from the specified directory. The log is saved to log.txt.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                items=types.Schema(type=types.Type.STRING),
+                description="List of arguments passed to the compiler.",
+            ),
+            "dir_path": types.Schema(
+                type=types.Type.STRING,
+                description="Path to the directory to run the compiler from, relative to the working directory.",
+            ),
+        },
+    ),
+)
+
+schema_cxx = types.FunctionDeclaration(
+    name="compile_cxx",
+    description="Run the g++ C++ compiler from the specified directory. The log is saved to log.txt.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                items=types.Schema(type=types.Type.STRING),
+                description="List of arguments passed to the compiler.",
+            ),
+            "dir_path": types.Schema(
+                type=types.Type.STRING,
+                description="Path to the directory to run the compiler from, relative to the working directory.",
+            ),
+        },
+    ),
+)
