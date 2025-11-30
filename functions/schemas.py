@@ -28,6 +28,20 @@ schema_get_file_content = types.FunctionDeclaration(
     ),
 )
 
+schema_create_dir = types.FunctionDeclaration(
+    name="create_dir",
+    description="Create a new directory within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "dir_path": types.Schema(
+                type=types.Type.STRING,
+                description="Path to the new directory, relative to the working directory.",
+            ),
+        },
+    ),
+)
+
 schema_write_file = types.FunctionDeclaration(
     name="write_file",
     description="Write the specified content to the specified file, constrained to the working directory. If the file already exists, it is overwritten.",

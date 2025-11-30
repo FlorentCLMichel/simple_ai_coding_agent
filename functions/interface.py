@@ -2,12 +2,14 @@ from google.genai import types
 
 from functions.get_files_info import *
 from functions.get_file_content import *
+from functions.create_dir import *
 from functions.write_file import *
 from functions.run_python_file import *
 
 functions = {
     "get_files_info": get_files_info,
     "get_file_content": get_file_content,
+    "create_dir": create_dir,
     "write_file": write_file,
     "run_python_file": run_python_file,
 }

@@ -20,6 +20,7 @@ available_functions = genai.types.Tool(
     function_declarations=[
         schema_get_files_info,
         schema_get_file_content,
+        schema_create_dir,
         schema_write_file,
         schema_run_python_file,
     ]
@@ -31,7 +32,7 @@ def main():
     parser = argparse.ArgumentParser(description="An experimental AI coding agent.")
     parser.add_argument("prompt", help="The user prompt.")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose mode.")
-    parser.add_argument("--work_dir", default="test_calculator", help="Working directory.")
+    parser.add_argument("--work_dir", default="temp", help="Working directory.")
     parser.add_argument("--max_iter", default=str(DEFAULT_MAX_ITERATIONS), help="Maximum number of iterations.")
     parser.add_argument("--max_tok", default=str(DEFAULT_MAX_TOKENS), 
                         help="Maximum number of tokens. WARNING: The actual number of tokens used may exceed this value.")
