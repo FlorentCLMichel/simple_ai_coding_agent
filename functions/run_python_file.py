@@ -8,7 +8,7 @@ def run_python_file(working_directory, file_path, args=[]) -> str:
     if not os.path.exists(file_path):
         f'ERROR: File "{file_path}" not found.'
     if not file_path.endswith('.py'):
-        return f'Error: "{file_path}" is not a Python file.'
+        return f'ERROR: "{file_path}" is not a Python file.'
     try:
         commands = ["python", file_path]
         if args:
@@ -28,4 +28,4 @@ def run_python_file(working_directory, file_path, args=[]) -> str:
             output.append(f"Process exited with code {result.returncode}")
         return "\n".join(output) if output else "No output produced."
     except Exception as e:
-        return f"Error: executing Python file: {e}"
+        return f"ERROR: executing Python file: {e}"

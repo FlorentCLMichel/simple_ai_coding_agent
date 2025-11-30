@@ -18,4 +18,4 @@ def get_files_info(working_directory: str, directory: str = ".") -> str :
             )
         return "\n".join(files_info)
     except Exception as e:
-        return f"Error listing files: {e}"
+        return f"ERROR listing files: {e}"

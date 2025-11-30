@@ -60,6 +60,24 @@ schema_write_file = types.FunctionDeclaration(
     ),
 )
 
+schema_move_file = types.FunctionDeclaration(
+    name="move_file",
+    description="Move a file to a different location, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "source_path": types.Schema(
+                type=types.Type.STRING,
+                description="The original location of the file, relative to the working directory.",
+            ),
+            "dest_path": types.Schema(
+                type=types.Type.STRING,
+                description="Destination for the file, relative to the working directory.",
+            ),
+        },
+    ),
+)
+
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
     description="Run the Python script in the specified file, constrained to the working directory.",

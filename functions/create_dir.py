@@ -9,4 +9,4 @@ def create_dir(working_directory, dir_path) -> str :
             os.makedirs(dir_path, exist_ok=True)
             return f'Successfully created "{dir_path}"'
         except Exception as e:
-            return f"Error: creating directory: {e}"
+            return f"ERROR: creating directory: {e}"

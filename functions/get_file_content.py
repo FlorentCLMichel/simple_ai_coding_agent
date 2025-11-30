@@ -16,4 +16,4 @@ def get_file_content(working_directory: str, file_path: str) -> str :
                 )
         return content
     except Exception as e:
-        return f'Error reading file "{target_file}": {e}'
+        return f'ERROR reading file "{target_file}": {e}'

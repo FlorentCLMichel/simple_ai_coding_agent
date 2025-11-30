@@ -22,6 +22,7 @@ available_functions = genai.types.Tool(
         schema_get_file_content,
         schema_create_dir,
         schema_write_file,
+        schema_move_file,
         schema_run_python_file,
     ]
 )

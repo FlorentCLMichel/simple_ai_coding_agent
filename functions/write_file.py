@@ -8,9 +8,9 @@ def write_file(working_directory, file_path, content) -> str :
         try:
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
         except Exception as e:
-            return f"Error: creating directory: {e}"
+            return f"ERROR: creating directory: {e}"
     if os.path.exists(file_path) and os.path.isdir(file_path):
-        return f'Error: "{file_path}" is a directory, not a file'
+        return f'ERROR: "{file_path}" is a directory, not a file'
     try:
         with open(file_path, 'w') as f:
             f.write(content)
