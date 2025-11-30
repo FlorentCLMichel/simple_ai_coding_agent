@@ -26,16 +26,19 @@ def call_function(function_call_part, verbose=False, working_directory='.'):
         print(f"Calling function: {function_name}({function_args})")
     if function_call_part.name in functions.keys():
         function_args["working_directory"] = working_directory
-        function_result = functions[function_name](**function_args)
-        return types.Content(
-            role="tool",
-            parts=[
-                types.Part.from_function_response(
-                    name=function_name,
-                    response={"result": function_result},
-                )
-            ],
-        )
+        try: 
+            function_result = functions[function_name](**function_args)
+            return types.Content(
+                role="tool",
+                parts=[
+                    types.Part.from_function_response(
+                        name=function_name,
+                        response={"result": function_result},
+                    )
+                ],
+            )
+        except e:
+            return "ERROR calling the function: {e}"
     else:
         return types.Content(
             role="tool",
