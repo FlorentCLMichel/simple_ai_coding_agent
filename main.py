@@ -9,7 +9,7 @@ from functions.schemas import *
 from functions.interface import *
 
 # Constants
-GEMINI_API_KEY_NAME = "GEMINI_API_KEY"
+API_KEY_NAME = "GEMINI_API_KEY"
 MODEL_NAME = "MODEL"
 DEFAULT_MODEL = "gemini-2.0-flash-001"
 DEFAULT_MAX_ITERATIONS = 20
@@ -67,11 +67,11 @@ def main():
         sys.exit(1)
 
     load_dotenv()
-    api_key = os.environ.get(GEMINI_API_KEY_NAME)
+    api_key = os.environ.get(API_KEY_NAME)
     model = os.environ.get(MODEL_NAME)
 
     if not api_key:
-        print(f"ERROR: {GEMINI_API_KEY_NAME} not set")
+        print(f"ERROR: {API_KEY_NAME} not set")
         sys.exit(1)
 
     if not model:
